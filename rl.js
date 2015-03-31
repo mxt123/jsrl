@@ -1,3 +1,7 @@
+//http://gamedevelopment.tutsplus.com/tutorials/how-to-make-your-first-roguelike--gamedev-13677
+//also ROT.js
+
+
 // font size
 var FONT = 32;
 
@@ -100,8 +104,7 @@ function initMap() {
 function drawMap() {
     for (var y = 0; y < ROWS; y++)
         for (var x = 0; x < COLS; x++) {
-            asciidisplay[y][x].content = map[y][x];
-           // initCell(map[y][x], x,y);            
+            asciidisplay[y][x].content = map[y][x];       
         }
 }
 
@@ -110,7 +113,6 @@ function drawActors() {
                if (actorList[a] != null && actorList[a].hp > 0) {
                			var c = a == 0?''+player.hp:'e'
                         asciidisplay[actorList[a].y][actorList[a].x].content = c;
-                     //   initCell(c, [actorList[a].x],[actorList[a].y]);
                     }
         }
 }
