@@ -53,14 +53,6 @@ function initActors() {
         livingEnemies = ACTORS-1;
 }
 
-function drawActors() {
-        for (var a in actorList) {
-               if (actorList[a] != null && actorList[a].hp > 0)
-                        asciidisplay[actorList[a].y][actorList[a].x].content = a == 0?''+player.hp:'e';
-        }
-}
-
-
 function onKeyUp(event) {
         switch (event.keyCode) {
                 case Keyboard.LEFT:
@@ -91,9 +83,22 @@ function initMap() {
 
 function drawMap() {
     for (var y = 0; y < ROWS; y++)
-        for (var x = 0; x < COLS; x++)
+        for (var x = 0; x < COLS; x++) {
             asciidisplay[y][x].content = map[y][x];
+            initCell(map[y][x], x,y);            
+        }
 }
+
+function drawActors() {
+        for (var a in actorList) {
+               if (actorList[a] != null && actorList[a].hp > 0) {
+               			var c = a == 0?''+player.hp:'e'
+                        asciidisplay[actorList[a].y][actorList[a].x].content = c;
+                        initCell(c, [actorList[a].x],[actorList[a].y]);
+                    }
+        }
+}
+
 
 function create() {
     // init keyboard commands
@@ -123,5 +128,4 @@ function initCell(chr, x, y) {
     };
     return game.add.text(FONT * 0.6 * x, FONT * y, chr, style);
 }
-
 
