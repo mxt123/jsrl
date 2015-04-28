@@ -7,8 +7,8 @@
 var FONT = 32;
 
 // map dimensions
-var ROWS = 3;//10;
-var COLS = 3;//15;
+var ROWS = 5;//10;//10;
+var COLS = 5;//10;//15;
 
 // number of actors per level, including player
 var ACTORS = 2;//10;
@@ -75,16 +75,20 @@ function initMap() {
 
 function drawMap() {    
     for (var y = 0; y < ROWS; y++)
-        for (var x = 0; x < COLS; x++) {
-            asciidisplay[y][x].content = map[y][x];            
+        for (var x = 0; x < COLS; x++) {    
+            asciidisplay[x][y].destroy();
+            asciidisplay[x][y] = initCell(map[y][x], x, y);
         }
 }
 
 function drawActors() {       
     for (var a in actorList) {
     	if (actorList[a] != null && actorList[a].hp > 0) {
-        	var c = a == 0?''+player.hp:'e';      
-            asciidisplay[actorList[a].y][actorList[a].x].content = c;                      
+        	var c = a == 0?''+player.hp:'e'; 
+            x =    actorList[a].x;
+            y =    actorList[a].y;       
+            asciidisplay[x][y].destroy();              
+            asciidisplay[x][y] = initCell(c, x, y);
         }
     }
 }
@@ -102,7 +106,7 @@ function create() {
     drawMap();
     drawActors();
 
-   	refresh();
+   //	refresh();
 }
 
 function init() {
@@ -115,7 +119,7 @@ function init() {
 			newRow.push(initCell('', x, y));
 	}
 }
-
+/*
 function refresh() { 
     
     for (var y = 0; y < ROWS; y++) {
@@ -126,7 +130,7 @@ function refresh() {
         }
     }
         
-}
+}*/
 
 function initCell(chr, x, y) {
 
@@ -167,7 +171,7 @@ function moveTo(actor, dir) {
                                 livingEnemies--;
                                 if (livingEnemies == 0) {
                                         // victory message
-                                        var victory = game.add.text(game.world.centerX, game.world.centerY, 'Victory!\nCtrl+r to restart', { fill : '#2e2', align: "center" } );
+                                        var victory = game.add.text(game.world.centerX, game.world.centerY, 'V!', { fill : '#2e2', align: "center" } );
                                         victory.anchor.setTo(0.5,0.5);
                                 }
                         }
@@ -216,7 +220,7 @@ function moveTo(actor, dir) {
         drawMap();
         drawActors();        
      //   init();
-        refresh();
+       // / refresh();
 	}
 
 
