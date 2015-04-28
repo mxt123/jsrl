@@ -11,7 +11,7 @@ var ROWS = 5;//10;//10;
 var COLS = 5;//10;//15;
 
 // number of actors per level, including player
-var ACTORS = 2;//10;
+var ACTORS = 5;//10;
 
 // a list of all actors; 0 is the player
 var player;
@@ -41,7 +41,7 @@ function initActors() {
         actorMap = {};
         for (var e=0; e<ACTORS; e++) {
                 // create new actor
-                var actor = { x:0, y:0, hp:e <= 0?3:1 };
+                var actor = { x:0, y:0, hp:e <= 0?ACTORS:1 };
                 do {
                         // pick a random position that is both a floor and not occupied
                         actor.y=randomInt(ROWS);
@@ -105,8 +105,6 @@ function create() {
 
     drawMap();
     drawActors();
-
-   //	refresh();
 }
 
 function init() {
@@ -119,18 +117,6 @@ function init() {
 			newRow.push(initCell('', x, y));
 	}
 }
-/*
-function refresh() { 
-    
-    for (var y = 0; y < ROWS; y++) {
-        for (var x = 0; x < COLS; x++)  {  
-            var text = asciidisplay[y][x].content;
-            asciidisplay[y][x].destroy();
-           asciidisplay[y][x] = initCell(text, x, y);
-        }
-    }
-        
-}*/
 
 function initCell(chr, x, y) {
 
@@ -162,6 +148,7 @@ function moveTo(actor, dir) {
                 //decrement hitpoints of the actor at the destination tile
                 var victim = actorMap[newKey];
                 victim.hp--;
+                player.hp--;
  
                 // if it's dead remove its reference
                 if (victim.hp == 0) {
