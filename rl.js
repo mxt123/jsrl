@@ -74,21 +74,29 @@ function initMap() {
 }
 
 function drawMap() {    
+       var style = {
+        font: FONT + "px monospace",
+        fill: "green"
+    }; 
     for (var y = 0; y < ROWS; y++)
         for (var x = 0; x < COLS; x++) {    
             asciidisplay[x][y].destroy();
-            asciidisplay[x][y] = initCell(map[y][x], x, y);
+            asciidisplay[x][y] = initCell(map[y][x], x, y,style);
         }
 }
 
-function drawActors() {       
+function drawActors() {    
+   var style = {
+        font: FONT + "px monospace",
+        fill: "red"
+    };    
     for (var a in actorList) {
     	if (actorList[a] != null && actorList[a].hp > 0) {
         	var c = a == 0?''+player.hp:'e'; 
             x =    actorList[a].x;
             y =    actorList[a].y;       
             asciidisplay[x][y].destroy();              
-            asciidisplay[x][y] = initCell(c, x, y);
+            asciidisplay[x][y] = initCell(c, x, y,style);
         }
     }
 }
@@ -108,23 +116,24 @@ function create() {
 }
 
 function init() {
+
+    var style = {
+        font: FONT + "px monospace",
+        fill: "#fff"
+    };    
+
   // initialize ascii display
 	asciidisplay = [];
 	for (var y = 0; y < ROWS; y++) {
 		var newRow = [];
 		asciidisplay.push(newRow);
 		for (var x = 0; x < COLS; x++)
-			newRow.push(initCell('', x, y));
+			newRow.push(initCell('', x, y,style));
 	}
 }
 
-function initCell(chr, x, y) {
-
+function initCell(chr, x, y,style) {
     // add a single cell in a given position to the ascii display   
-    var style = {
-        font: FONT + "px monospace",
-        fill: "#fff"
-    };    
     return game.add.text(FONT * 0.6 * x, FONT * y, chr, style);
 }
 
@@ -209,7 +218,5 @@ function moveTo(actor, dir) {
      //   init();
        // / refresh();
 	}
-
-
 
 }());
