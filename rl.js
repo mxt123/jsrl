@@ -92,7 +92,7 @@ function drawActors() {
     };    
     for (var a in actorList) {
     	if (actorList[a] != null && actorList[a].hp > 0) {
-        	var c = a == 0?''+player.hp:'e'; 
+        	var c = a == 0?''+player.hp:'e';
             x =    actorList[a].x;
             y =    actorList[a].y;       
             asciidisplay[x][y].destroy();              
